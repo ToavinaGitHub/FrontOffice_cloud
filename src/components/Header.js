@@ -7,9 +7,11 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Header() {
   const [openNav, setOpenNav] = useState(false);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     window.addEventListener(
@@ -22,6 +24,11 @@ function Header() {
 
   const handleRedirect = (path) => {
     navigate(path);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/"; 
   };
 
   return (
@@ -64,45 +71,53 @@ function Header() {
               >
                   Message
               </Typography>
-              <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="mr-4 cursor-pointer py-1.5 font-medium text-white"
-                onClick={() => handleRedirect("/HistoriqueAnnonce")}
-              >
-                  Historique Annonce
-              </Typography>
-              <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="mr-4 cursor-pointer py-1.5 font-medium text-white"
-                onClick={() => handleRedirect("/AnnonceFavoris")}
-              >
-                  Liste des annonces favoris
-              </Typography>
-              <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="mr-4 cursor-pointer py-1.5 font-medium text-white"
-                onClick={() => handleRedirect("/Details")}
-              >
-                  Details
-              </Typography>
+
+              <Link to={`/AnnonceFavoris`}>
+                  <Typography
+                      as="li"
+                      variant="small"
+                      color="blue-gray"
+                      className="mr-4 cursor-pointer py-1.5 font-medium text-white"
+                    >
+                        Favoris
+                    </Typography>
+              </Link>       
+
+               <Link to={`/HistoriqueAnnonce`}>
+                  <Typography
+                    as="li"
+                    variant="small"
+                    color="blue-gray"
+                    className="mr-4 cursor-pointer py-1.5 font-medium text-white"
+                  >
+                      Profil
+                  </Typography>
+              </Link>
+                
             </ul>
           </div>
           <div className="flex items-center gap-x-1">
-            <Button
-              variant="gradient"
-              size="sm"
-              className="hidden lg:inline-block text-white"
-              onClick={() => handleRedirect("/Login")}
-            >
-              <span>Se connecter</span>
-            </Button>
+              {token ? (
+                <Button
+                  variant="gradient"
+                  size="sm"
+                  className="hidden lg:inline-block text-white"
+                  onClick={() => handleLogout()} 
+                >
+                  <span>Se déconnecter</span>
+                </Button>
+              ) : (
+                <Button
+                  variant="gradient"
+                  size="sm"
+                  className="hidden lg:inline-block text-white"
+                  onClick={() => handleRedirect("/Login/0")}
+                >
+                  <span>Se connecter</span>
+                </Button>
+              )}
           </div>
+
           <IconButton
             variant="text"
             className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
