@@ -44,16 +44,12 @@ class SideBar extends React.Component {
             </Select>
         </div>
         <div className="p-2">
-            <Select label="Prix" name="prix">
-                <Option>Min Price</Option>
-                <Option>Max Price</Option>
-            </Select>
+            <Input label="Prix Min" />
+            <Input label="Prix Max" />
         </div>
         <div className="p-2">
-            <Select label="Date" name="date">
-                <Option>Min Date</Option>
-                <Option>Max Date</Option>
-            </Select>
+            <Input label="Date Min" />
+            <Input label="Date Max" />
         </div>
       </Card>
       
