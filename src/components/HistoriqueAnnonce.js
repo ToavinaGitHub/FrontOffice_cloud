@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import GridContent from "./GridContent";
-import tiguanImage from "../assets/image/tiguan.jpg";
+
 import {
   Card,
   Typography
 } from "@material-tailwind/react";
+
+import config from "../Config";
 
 function HistoriqueAnnonce() {
     const [annonces, setAnnonces] = useState([]);
@@ -15,7 +17,7 @@ function HistoriqueAnnonce() {
     const fetchAnnoncesHistorique = () => {
         const token = localStorage.getItem("token");
         const idUser= localStorage.getItem("idUser");
-        fetch(`https://wsprojetcloud-production.up.railway.app/AnnoncesHistorique?idClient=${idUser}`, {
+        fetch(config.baseUrl+`/AnnoncesHistorique?idClient=${idUser}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
@@ -35,9 +37,9 @@ function HistoriqueAnnonce() {
           Historique de mes annonces
         </Typography>
       </div>
-       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-8">
+       <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 gap-8 p-8">
                 {annonces.map((annonce, index) => (
-                    <Card key={index}>
+                    <Card key={index} className="mt-6 w-96">
                         <GridContent
                             idAnnonce={annonce.idAnnonce}
                             voiture={annonce.modele.nomModele}

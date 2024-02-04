@@ -4,6 +4,8 @@ import { Button, Card } from "@material-tailwind/react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faTrash } from '@fortawesome/free-solid-svg-icons';
 
+
+import config from "../Config";
 function AnnonceFavoris() {
     const [annonces, setAnnonces] = useState([]);
 
@@ -14,7 +16,7 @@ function AnnonceFavoris() {
     const fetchAnnoncesFavoris = () => {
         const token = localStorage.getItem("token");
         const idUser= localStorage.getItem("idUser");
-        fetch(`https://wsprojetcloud-production.up.railway.app/AnnoncesFavoris?idClient=${idUser}`, {
+        fetch(config.baseUrl+`/AnnoncesFavoris?idClient=${idUser}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
@@ -31,9 +33,9 @@ function AnnonceFavoris() {
 
     return (
         <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-8">
+            <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 gap-8 p-8">
                 {annonces.map((annonce, index) => (
-                    <Card key={index}>
+                    <Card key={index} className="mt-6 w-96">
                         <GridContent
                             idAnnonce={annonce.idAnnonce}
                             voiture={annonce.modele.nomModele}

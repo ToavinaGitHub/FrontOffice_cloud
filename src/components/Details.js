@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Card, Typography, Button } from "@material-tailwind/react";
-import tiguanImage from "../assets/image/tiguan.jpg";
+
 import { useParams } from 'react-router-dom';
+
+
+import config from "../Config";
 
 function Details() {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -27,7 +30,7 @@ function Details() {
   };
 
   useEffect(() => {
-    fetch(`https://wsprojetcloud-production.up.railway.app/Annonce?idAnnonce=${idAnnonce}`)
+    fetch(config.baseUrl+`/Annonce?idAnnonce=${idAnnonce}`)
       .then((response) => response.json())
       .then((data) => {
         setAnnonce(data);
@@ -55,9 +58,9 @@ function Details() {
                     <img
                       key={index}
                       src={`data:image/jpeg;base64, ${image.sary}`}
-                      alt={`Image ${index}`}
+                      alt="Voiture"
                       style={{ width: '100%', height: 'auto' }}
-                    />
+                    ></img>
                   ))}
                 </div>
               </div>

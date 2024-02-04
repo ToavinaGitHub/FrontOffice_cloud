@@ -5,8 +5,10 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
-import loginImage from "../assets/image/log.jpg";
+import loginImage from "../assets/image/Bonokany3.png";
 import { useParams } from 'react-router-dom';
+
+import config from "../Config";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -28,7 +30,7 @@ function Login() {
 
     const { email, password } = formData;
 
-    let url = 'https://wsprojetcloud-production.up.railway.app/api/v1/auth/authenticateClient';
+    let url = config.baseUrl+'/api/v1/auth/authenticateClient';
 
     try {
       const response = await fetch(url, {
@@ -48,15 +50,14 @@ function Login() {
       if (data) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("idUser",data.id);
-        console.log(data);
-        if(id==0){
-            window.location.href = "/";
-        }else if(id==1){
-            window.location.href = `/AnnonceFavoris`;
-        }else if(id==2){
-          window.location.href = `/HistoriqueAnnonce`;
-      }
-        
+        console.log(id);
+        if(id==="0"){
+          window.location.href = "/";
+        } else if(id==="1"){
+          window.location.href = `/AnnonceFavoris`;
+        } else if(id==="2"){
+          window.location.href = `/`;
+        }
       }
     } catch (error) {
       setError("Email ou mot de passe incorrect");
@@ -64,29 +65,29 @@ function Login() {
   };
 
   return (
-    <div className="flex h-screen" style={{ paddingTop: "50px", width: "80%", margin: "auto", height: "500px" }}>
+    <div className="flex flex-col md:flex-row h-screen">
       <div
-        className="flex-shrink-0 w-1/2 h-full bg-cover border-solid border"
+        className="flex-shrink-0 w-full md:w-1/2 h-64 md:h-full bg-cover border-solid border"
         style={{
-          backgroundImage: `url(${loginImage})`
+          backgroundImage: `url(${loginImage})`,
         }}
       ></div>
       <div
-        className="flex-shrink-0 w-1/2 p-8 flex flex-col items-center justify-center mt[20%] border-solid border border-2"
-        style={{ height: "450px ", borderColor: 'rgb(247, 247, 247)' }}
+        className="flex-shrink-0 w-full md:w-1/2 p-8 flex flex-col items-center justify-center border-solid border border-2"
+        style={{ borderColor: 'rgb(247, 247, 247)' }}
       >
         <Card color="transparent" shadow={false}>
           <Typography variant="h4" color="blue-gray" className="text-center">
             Login
           </Typography>
-          <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" onSubmit={handleSubmit}>
+          <form className="mt-8 mb-2 w-full max-w-screen-lg md:w-96" onSubmit={handleSubmit}>
             <div className="mb-1 flex flex-col gap-6">
-              <Typography variant="h6" color="blue-gray" className="-mb-3" >
+              <Typography variant="h6" color="blue-gray" className="-mb-3">
                 Votre Email
               </Typography>
               <Input
                 size="lg"
-                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                className="!border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
@@ -101,7 +102,7 @@ function Login() {
                 type="password"
                 size="lg"
                 placeholder="********"
-                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                className="!border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
@@ -114,7 +115,7 @@ function Login() {
               Se Connecter
             </Button>
           </form>
-          <a id="error">{error}</a>
+          <span id="error">{error}</span>
         </Card>
       </div>
     </div>

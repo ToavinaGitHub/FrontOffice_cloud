@@ -1,8 +1,7 @@
-import logo from './logo.svg';
+
 import './App.css';
 import Header from './components/Header';
 import Accueil from './components/Accueil';
-import SideBar from './components/SideBar';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import PrivateMessage from './components/Message';
 import BoiteDiscussion from './components/BoiteDiscussion';
@@ -30,7 +29,6 @@ function App() {
             <>
             <Header />
             <div style={{ display: "flex" }}>
-              <SideBar />
               <div style={{ flex: 1 }}>
                   <Accueil />
               </div>
@@ -57,7 +55,7 @@ function App() {
           }
         />
         <Route 
-          path="/Message" 
+          path="/Message/:idUser" 
           element={
             <>
               <Header />
