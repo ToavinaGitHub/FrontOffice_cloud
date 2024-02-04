@@ -95,21 +95,28 @@ class SideBar extends React.Component {
     const isValidValue = (value) => value !== null && value !== undefined && value !== '';
   
     // Create an object with only valid values
-    const searchCriteria = {
-      ...(isValidValue(keyword) && { keyword }),
-      ...(isValidValue(selectedMarque) && { marque: { idMarque: selectedMarque } }),
-      ...(isValidValue(selectedModele) && { modele: { idModele: selectedModele } }),
-      ...(isValidValue(selectedCategorie) && { categorie: { idCategorie: selectedCategorie } }),
-      ...(isValidValue(minPrice) && { prixMin: minPrice }),
-      ...(isValidValue(maxPrice) && { prixMax: maxPrice }),
-      ...(isValidValue(minKilometrage) && { minKilometrage }),
-      ...(isValidValue(maxKilometrage) && { maxKilometrage }),
-      ...(isValidValue(minDate) && { minDate }),
-      ...(isValidValue(maxDate) && { maxDate }),
-    };
+    const searchCriteria = Object.fromEntries(
+      Object.entries({
+        keyword: this.state.keyword,
+        marque: this.state.selectedMarque !== '' ? { idMarque: this.state.selectedMarque } : null,
+        modele: this.state.selectedModele !== '' ? { idModele: this.state.selectedModele } : null,
+        categorie: this.state.selectedCategorie !== '' ? { idCategorie: this.state.selectedCategorie } : null,
+        prixMin: this.state.minPrice,
+        prixMax: this.state.maxPrice,
+        minKilometrage: this.state.minKilometrage,
+        maxKilometrage: this.state.maxKilometrage,
+        minDate: this.state.minDate,
+        maxDate: this.state.maxDate,
+      }).filter(([key, value]) => value !== null && value !== undefined && value !== '')
+    );
+    
+    console.log("Search Criteria:", searchCriteria);
+    
+    
+    
   
     console.log("Search Criteria:", searchCriteria);
-
+    this.props.onSearchCriteria(searchCriteria);
   };
 
   

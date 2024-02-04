@@ -31,12 +31,7 @@ function App() {
           element={
             <>
             <Header />
-            <div style={{ display: "flex" }}>
-              <SideBar />
-              <div style={{ flex: 1 }}>
-                  <Accueil />
-              </div>
-            </div>
+            <Accueil />
             <Footer />
           </> 
           }
