@@ -1,7 +1,6 @@
 import './App.css';
 import Header from './components/Header';
 import Accueil from './components/Accueil';
-import SideBar from './components/SideBar';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import PrivateMessage from './components/Message';
 import BoiteDiscussion from './components/BoiteDiscussion';
@@ -9,7 +8,6 @@ import HistoriqueAnnonce from './components/HistoriqueAnnonce';
 import AnnonceFavoris from './components/AnnonceFavoris';
 import Details from './components/Details';
 import Login from './components/Login';
-import Recherche from './components/Recherche';
 import { Footer } from './components/Footer';
 
 function App() {
@@ -79,16 +77,6 @@ function App() {
               <Header />
               <Details />
               <Footer />
-            </> 
-          }
-        />
-         <Route 
-          path="/Recherche" 
-          element={
-            <>
-            <Header />
-            <Recherche/>
-            <Footer />
             </> 
           }
         />

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   Navbar,
   Typography,
-  Button,
   IconButton,
 } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";

@@ -78,21 +78,6 @@ class SideBar extends React.Component {
   };
 
   handleSearchClick = () => {
-    const {
-      keyword,
-      selectedMarque,
-      selectedModele,
-      selectedCategorie,
-      minPrice,
-      maxPrice,
-      minDate,
-      maxDate,
-      minKilometrage,
-      maxKilometrage,
-    } = this.state;
-  
-    // Helper function to check if a value is non-empty, defined, and not null
-    const isValidValue = (value) => value !== null && value !== undefined && value !== '';
   
     // Create an object with only valid values
     const searchCriteria = Object.fromEntries(
