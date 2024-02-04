@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import GridContent from "./GridContent";
-import tiguanImage from "../assets/image/tiguan.jpg";
 import {
   Card,
   Typography

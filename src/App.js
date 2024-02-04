@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Header from './components/Header';
 import Accueil from './components/Accueil';
@@ -10,6 +9,8 @@ import HistoriqueAnnonce from './components/HistoriqueAnnonce';
 import AnnonceFavoris from './components/AnnonceFavoris';
 import Details from './components/Details';
 import Login from './components/Login';
+import Recherche from './components/Recherche';
+import { Footer } from './components/Footer';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <>
             <Header />
             <Login />
+            <Footer />
           </> 
           }
         />
@@ -35,6 +37,7 @@ function App() {
                   <Accueil />
               </div>
             </div>
+            <Footer />
           </> 
           }
         />
@@ -80,6 +83,17 @@ function App() {
             <>
               <Header />
               <Details />
+              <Footer />
+            </> 
+          }
+        />
+         <Route 
+          path="/Recherche" 
+          element={
+            <>
+            <Header />
+            <Recherche/>
+            <Footer />
             </> 
           }
         />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import GridContent from "./GridContent";
 import {
   Button,
@@ -7,10 +7,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
-  faStar,
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
 
 class Accueil extends React.Component {
   constructor(props) {
@@ -66,6 +64,14 @@ class Accueil extends React.Component {
     const { annonces} = this.state;
 
     return (
+      <>
+<div className="mb-8 mt-10 text-center p-8 rounded-lg shadow-md">
+  <p className="text-3xl font-bold mb-4 text-indigo-700">Explorez et vendez des voitures d'occasion de qualité.</p>
+  <p className="text-xl leading-relaxed">Simplifiez vos transactions automobiles avec notre plateforme fiable.</p>
+</div>
+
+
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8 ">
         {annonces.map((annonce, index) => (
           <Card key={index}>
@@ -101,6 +107,8 @@ class Accueil extends React.Component {
           </Card>
         ))}
       </div>
+      </>
+      
     );
   }
 }

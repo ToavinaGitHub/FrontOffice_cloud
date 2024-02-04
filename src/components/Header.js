@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import {
   Navbar,
-  MobileNav,
   Typography,
   Button,
   IconButton,
 } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Header() {
   const [openNav, setOpenNav] = useState(false);
@@ -90,7 +91,7 @@ function Header() {
                     color="blue-gray"
                     className="mr-4 cursor-pointer py-1.5 font-medium text-white"
                   >
-                      Profil
+                      Historique
                   </Typography>
               </Link>
                 
@@ -98,25 +99,27 @@ function Header() {
           </div>
           <div className="flex items-center gap-x-1">
               {token ? (
-                <Button
+                <Typography
                   variant="gradient"
                   size="sm"
                   className="hidden lg:inline-block text-white"
                   onClick={() => handleLogout()} 
                 >
+                  <FontAwesomeIcon icon={faUser} className="text-lg" />
                   <span>Se déconnecter</span>
-                </Button>
+                </Typography>
               ) : (
-                <Button
+                <Typography
                   variant="gradient"
                   size="sm"
-                  className="hidden lg:inline-block text-white"
+                  className="hidden lg:inline-block text-white flex items-center gap-x-1"
                   onClick={() => handleRedirect("/Login/0")}
                 >
+                  <FontAwesomeIcon icon={faUser} className="text-lg" />
                   <span>Se connecter</span>
-                </Button>
+                </Typography>
               )}
-          </div>
+        </div>
 
           <IconButton
             variant="text"

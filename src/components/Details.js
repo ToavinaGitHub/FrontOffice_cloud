@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Card, Typography, Button } from "@material-tailwind/react";
-import tiguanImage from "../assets/image/tiguan.jpg";
 import { useParams } from 'react-router-dom';
 
 function Details() {

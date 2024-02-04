@@ -1,15 +1,10 @@
 import React from "react";
 import {
-    Navbar,
-    MobileNav,
     Typography,
     Button,
-    IconButton,
-    Card,
   } from "@material-tailwind/react";
-import { faEnvelope, faStar,faEye, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 
 
@@ -40,6 +35,8 @@ function GridContent({ idAnnonce, voiture,descri, prix, specs, image, vendeur, d
                         <img
                             src={`data:image/jpeg;base64, ${image}`}
                             className="w-full h-auto mt-4 mb-4"
+                            style={{ width: '600px', height: '280px' }}
+                            alt=""
                         />
                          <div className="flex items-center justify-between mb-4 text-blue-gray-500">
                             <Typography variant="h7" className="text-s">{vendeur}</Typography>
