@@ -4,17 +4,23 @@ class Message extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: [
-        { sender: "John", content: "Texte1" },
-        { sender: "Alice", content: "Texte2" },
-        { sender: "John", content: "Texte1" },
-        { sender: "Alice", content: "Texte2" },
-        { sender: "John", content: "Texte1" },
-        { sender: "Alice", content: "Texte2" },
-      ],
+      messages: [],
       newMessage: "",
     };
   }
+  
+  fetchDiscussionEntre = () => {
+    const idUser= localStorage.getItem("idUser");
+    const idUser2 = localStorage.getItem('idUser2');
+    fetch(`https://wsprojetcloud-production.up.railway.app/message/messageBetween?user1=${idUser}&user2=${idUser2}`)
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({ annonces: data });
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+      });
+  };
 
   handleSendMessage = () => {
     const { messages, newMessage } = this.state;
@@ -26,6 +32,10 @@ class Message extends Component {
       });
     }
   };
+
+  sendMessage = async (idSender, idReceive) => {
+
+  }
 
   render() {
     const { messages, newMessage } = this.state;

@@ -114,7 +114,7 @@ function Login() {
               Se Connecter
             </Button>
           </form>
-          <a id="error">{error}</a>
+          <a id="error" style={{ color: "red" }} >{error}</a>
         </Card>
       </div>
     </div>

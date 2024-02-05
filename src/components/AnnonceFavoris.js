@@ -6,6 +6,7 @@ import { faEnvelope, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 function AnnonceFavoris() {
     const [annonces, setAnnonces] = useState([]);
+    const idUser= localStorage.getItem("idUser");
 
     useEffect(() => {
         fetchAnnoncesFavoris();
@@ -27,7 +28,10 @@ function AnnonceFavoris() {
                 window.location.href = "/Login/1";
             });
     };
-  
+
+    const handleRedirect = (idUser1 , idUser2) => {
+      window.location.assign(`/Message?idUser1=${idUser1}&idUser2=${idUser2}`);
+    };  
 
     return (
         <>
@@ -58,6 +62,7 @@ function AnnonceFavoris() {
                             <Button
                                 ripple={false}
                                 style={{ backgroundColor: 'rgb(54, 65, 86)', color: 'white' }}
+                                onClick={() => handleRedirect(idUser, annonce.idUtilisateur)}
                             >
                                 <FontAwesomeIcon icon={faEnvelope} className="w-5 h-5 mr-2" /> Contacter
                             </Button>

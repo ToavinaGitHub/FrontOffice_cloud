@@ -10,7 +10,6 @@ import {
   faStar,
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
 
 class Accueil extends React.Component {
   constructor(props) {
@@ -60,7 +59,10 @@ class Accueil extends React.Component {
       window.location.href = "/Login/0";
     }
   };
-  
+
+  handleRedirect = (idUser1 , idUser2) => {
+    window.location.assign(`/Message?idUser1=${idUser1}&idUser2=${idUser2}`);
+  };
 
   render() {
     const { annonces} = this.state;
@@ -94,6 +96,7 @@ class Accueil extends React.Component {
                 <Button
                   ripple={false}
                   style={{ backgroundColor: "rgb(54, 65, 86)", color: "white" }}
+                  onClick={() => this.handleRedirect(this.state.idUser, annonce.idUtilisateur)}
                 >
                   <FontAwesomeIcon icon={faEnvelope} className="w-5 h-5 mr-2" /> Contacter
               </Button>

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Card, Typography, Button } from "@material-tailwind/react";
-import tiguanImage from "../assets/image/tiguan.jpg";
 import { useParams } from 'react-router-dom';
 
 function Details() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [annonce, setAnnonce] = useState([]);
   const { idAnnonce } = useParams();
+  const idUser= localStorage.getItem("idUser");
 
   const handleScrollRight = () => {
     const imageWidth = 800; 
@@ -25,6 +25,10 @@ function Details() {
     setScrollPosition(newPosition);
   }
   };
+
+  const handleRedirect = (idUser1 , idUser2) => {
+    window.location.assign(`/Message?idUser1=${idUser1}&idUser2=${idUser2}`);
+  }; 
 
   useEffect(() => {
     fetch(`https://wsprojetcloud-production.up.railway.app/Annonce?idAnnonce=${idAnnonce}`)
@@ -114,7 +118,10 @@ function Details() {
                 <Button color="blue" size="md" ripple="dark">
                   Acheter Maintenant
                 </Button>
-                <Button variant="outlined" size="md" ripple="dark">
+                <Button 
+                  variant="outlined" size="md" ripple="dark"
+                  onClick={() => handleRedirect(idUser, annonce.idUtilisateur)}
+                >
                   Contacter
                 </Button>
               </div>
