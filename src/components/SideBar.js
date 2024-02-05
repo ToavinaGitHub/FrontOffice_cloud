@@ -71,6 +71,11 @@ class SideBar extends React.Component {
 
   handleInputChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
+    if (e.target.type === 'date' || e.target.type === 'datetime-local') {
+      this.setState({ [e.target.name]: e.target.value });
+    } else {
+      this.setState({ [e.target.name]: e.target.value });
+    }
   };
 
   handleSelectChange = (name, value) => {
@@ -94,12 +99,6 @@ class SideBar extends React.Component {
         maxDate: this.state.maxDate,
       }).filter(([key, value]) => value !== null && value !== undefined && value !== '')
     );
-    
-    console.log("Search Criteria:", searchCriteria);
-    
-    
-    
-  
     console.log("Search Criteria:", searchCriteria);
     this.props.onSearchCriteria(searchCriteria);
   };
@@ -188,6 +187,7 @@ class SideBar extends React.Component {
           <Input
             label="Date Min"
             name="minDate"
+            type="datetime-local"
             value={this.state.minDate}
             onChange={this.handleInputChange}
           />
@@ -196,6 +196,7 @@ class SideBar extends React.Component {
           <Input
             label="Date Max"
             name="maxDate"
+            type="datetime-local"
             value={this.state.maxDate}
             onChange={this.handleInputChange}
           />

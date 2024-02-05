@@ -77,6 +77,7 @@ class Accueil extends React.Component {
         // Handle the response from the web service
         console.log('Response from web service:', data);
         this.setState({ annonces: data });
+        
       })
       .catch(error => {
         
