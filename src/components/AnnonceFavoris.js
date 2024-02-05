@@ -29,6 +29,26 @@ function AnnonceFavoris() {
                 window.location.href = "/Login/1";
             });
     };
+
+    const removeFromFavorites = (idAnnonce) => {
+        const token = localStorage.getItem("token");
+        const idUser= localStorage.getItem("idUser");
+      
+        console.log(idAnnonce);
+        fetch(config.baseUrl+`/Annonce?idAnnonce=${idAnnonce}&idUser=${idUser}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+        .then(() => {
+            // After successful deletion, fetch the updated list of favorites
+            fetchAnnoncesFavoris();
+        })
+        .catch((error) => {
+            console.error('Error deleting annonce from favorites:', error);
+        });
+    };
   
 
     return (
@@ -51,9 +71,10 @@ function AnnonceFavoris() {
                             date={new Date(annonce.dateAnnonce).toLocaleDateString()}
                         />
                         <div className="flex flex-col gap-4 mt-4">
-                            <Button
+                        <Button
                                 ripple={false}
                                 style={{ backgroundColor: 'rgb(125, 78, 87)', color: 'white' }}
+                                onClick={() => removeFromFavorites(annonce.idAnnonce)}
                             >
                                 <FontAwesomeIcon icon={faTrash} className="w-5 h-5 mr-2" /> Supprimer des favoris
                             </Button>

@@ -9,6 +9,7 @@ import HistoriqueAnnonce from './components/HistoriqueAnnonce';
 import AnnonceFavoris from './components/AnnonceFavoris';
 import Details from './components/Details';
 import Login from './components/Login';
+import SideBar from './components/SideBar';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <>
             <Header />
             <div style={{ display: "flex" }}>
+            <SideBar />
               <div style={{ flex: 1 }}>
                   <Accueil />
               </div>

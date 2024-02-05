@@ -40,7 +40,7 @@ function GridContent({ idAnnonce, voiture,descri, prix, specs, image, vendeur, d
                             ))}
                         </p>
                         <img
-                            src={`data:image/jpeg;base64, ${image}`}
+                            src={image}
                             className="w-full h-auto mt-4 mb-4 custom-image"
                             style={imageStyle}
                             alt="Voiture"

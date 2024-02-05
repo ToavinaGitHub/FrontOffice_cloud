@@ -3,7 +3,7 @@ import { Card, Typography, Button } from "@material-tailwind/react";
 
 import { useParams } from 'react-router-dom';
 
-
+import  { Link } from 'react-router-dom';
 import config from "../Config";
 
 function Details() {
@@ -57,7 +57,7 @@ function Details() {
                   {annonce.saryAnnonces?.map((image, index) => (
                     <img
                       key={index}
-                      src={`data:image/jpeg;base64, ${image.sary}`}
+                      src={image.sary}
                       alt="Voiture"
                       style={{ width: '100%', height: 'auto' }}
                     ></img>
@@ -114,12 +114,11 @@ function Details() {
                   </Typography>
               </div>
               <div className="flex items-center justify-center space-x-4">
-                <Button color="blue" size="md" ripple="dark">
-                  Acheter Maintenant
-                </Button>
+              <Link to={`/Message/${annonce.utilisateur?.idUtilisateur}`}>
                 <Button variant="outlined" size="md" ripple="dark">
                   Contacter
                 </Button>
+              </Link>
               </div>
             </div>
           </div>

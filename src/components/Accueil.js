@@ -11,7 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-import SideBar from "./SideBar";
+
 
 import config from "../Config";
 
@@ -71,7 +71,7 @@ class Accueil extends React.Component {
     return (
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 ">
-        <SideBar />
+       
         {annonces.map((annonce, index) => (
           <Card key={index}  className="mt-6 w-96">
             <GridContent
