@@ -42,6 +42,7 @@ function Header() {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("idUser");
     localStorage.removeItem("token");
     window.location.href = "/";
   };

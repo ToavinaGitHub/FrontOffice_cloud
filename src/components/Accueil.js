@@ -11,8 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-
-
+import SideBar from "./SideBar";
 import config from "../Config";
 
 class Accueil extends React.Component {
@@ -63,52 +62,84 @@ class Accueil extends React.Component {
       window.location.href = "/Login/0";
     }
   };
+  handleSearchCriteria = (searchCriteria) => {
+    console.log("Received Search Criteria in Accueil:", searchCriteria);
+    const json= JSON.stringify(searchCriteria);
+    console.log('Json:',json );
+    fetch(config.baseUrl+'/Annonces/searchPost', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: json,
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response from the web service
+        console.log('Response from web service:', data);
+        this.setState({ annonces: data });
+        
+      })
+      .catch(error => {
+        
+        console.error('Error sending request:', error);
+      });
+  };
   
 
   render() {
     const { annonces} = this.state;
 
     return (
-      
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 ">
-       
-        {annonces.map((annonce, index) => (
-          <Card key={index}  className="mt-6 w-96">
-            <GridContent
-              idAnnonce={annonce.idAnnonce}
-              voiture={annonce.modele.nomModele}
-              prix={annonce.prixDemande}
-              descri={annonce.description}
-              specs={[
-                annonce.moteurModele.moteur.nomMoteur,
-                annonce.modele.categorie.nomCategorie,
-                annonce.transmission.nomTransmission,
-              ]}
-              image={annonce.saryAnnonces[0].sary}
-              vendeur={`${annonce.utilisateur.nomUtilisateur} ${annonce.utilisateur.prenomUtilisateur}`}
-              date={new Date(annonce.dateAnnonce).toLocaleDateString()}
-            />
-            <div className="flex flex-col gap-4 mt-4">
-                  <Button
-                    ripple={false}
-                    style={{ backgroundColor: "rgb(125, 78, 87)", color: "white" }}
-                    onClick={() => this.addToFav(annonce.idAnnonce,this.state.idUser)}
-                  >
-                     <FontAwesomeIcon icon={faHeart} className="w-5 h-5 mr-2" /> Ajouter aux Favoris
-                  </Button>
-
-                <Link to={`/Message/${annonce.utilisateur.idUtilisateur}`}>
-                  <Button
-                    ripple={false}
-                    style={{ backgroundColor: "rgb(54, 65, 86)", color: "white" }}
-                  >
+      <>
+      <div style={{ display: "flex" }}>
+          <SideBar onSearchCriteria={this.handleSearchCriteria} />
+          <div style={{ flex: 1 }}> 
+              <div className="mb-8 mt-10 text-center p-8 rounded-lg shadow-md">
+                <p className="text-3xl font-bold mb-4 text-indigo-700">Explorez et vendez des voitures d'occasion de qualité.</p>
+                <p className="text-xl leading-relaxed">Simplifiez vos transactions automobiles avec notre plateforme fiable.</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8 ">
+                {annonces.map((annonce, index) => (
+                  <Card key={index}>
+                    <GridContent
+                      idAnnonce={annonce.idAnnonce}
+                      voiture={annonce.modele.nomModele}
+                      prix={annonce.prixDemande}
+                      descri={annonce.description}
+                      specs={[
+                        annonce.moteurModele.moteur.nomMoteur,
+                        annonce.modele.categorie.nomCategorie,
+                        annonce.transmission.nomTransmission,
+                      ]}
+                      image={annonce.saryAnnonces[0].sary}
+                      vendeur={`${annonce.utilisateur.nomUtilisateur} ${annonce.utilisateur.prenomUtilisateur}`}
+                      date={new Date(annonce.dateAnnonce).toLocaleDateString()}
+                    />
+                    <div className="flex flex-col gap-4 mt-4">
+                          <Button
+                            ripple={false}
+                            style={{ backgroundColor: "rgb(125, 78, 87)", color: "white" }}
+                            onClick={() => this.addToFav(annonce.idAnnonce,this.state.idUser)}
+                          >
+                            <FontAwesomeIcon icon={faHeart} className="w-5 h-5 mr-2" /> Ajouter aux Favoris
+                          </Button>
+                          <Link to={`/Message/${annonce.utilisateur.idUtilisateur}`}>
+                      <Button
+                        ripple={false}
+                        style={{ backgroundColor: "rgb(54, 65, 86)", color: "white" }}
+                      >
                     <FontAwesomeIcon icon={faEnvelope} className="w-5 h-5 mr-2" /> Contacter
-                </Button>
-              </Link>
+                      </Button>
+                   </Link>
+                    </div>
+                  </Card>
+                ))}
+              </div>
             </div>
-          </Card>
-        ))}
-      </div>
+        </div>
+      </>
     );
   }
 }

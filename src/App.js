@@ -9,7 +9,8 @@ import HistoriqueAnnonce from './components/HistoriqueAnnonce';
 import AnnonceFavoris from './components/AnnonceFavoris';
 import Details from './components/Details';
 import Login from './components/Login';
-import SideBar from './components/SideBar';
+import { Footer } from './components/Footer';
+
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <>
             <Header />
             <Login />
+            <Footer />
           </> 
           }
         />
@@ -29,12 +31,8 @@ function App() {
           element={
             <>
             <Header />
-            <div style={{ display: "flex" }}>
-            <SideBar />
-              <div style={{ flex: 1 }}>
-                  <Accueil />
-              </div>
-            </div>
+            <Accueil />
+            <Footer />
           </> 
           }
         />
@@ -57,13 +55,13 @@ function App() {
           }
         />
         <Route 
-          path="/Message/:idUser" 
-          element={
-            <>
-              <Header />
-              <PrivateMessage />
-            </> 
-          }
+        path="/Message/:idUser" 
+        element={
+          <>
+            <Header />
+            <PrivateMessage />
+          </> 
+        }
         />
         <Route 
           path="/Discussions" 
@@ -80,6 +78,7 @@ function App() {
             <>
               <Header />
               <Details />
+              <Footer />
             </> 
           }
         />
@@ -87,5 +86,7 @@ function App() {
     </BrowserRouter>
   );
 }
+
+
 
 export default App;
