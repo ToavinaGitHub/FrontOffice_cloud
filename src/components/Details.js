@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Card, Typography, Button } from "@material-tailwind/react";
-import tiguanImage from "../assets/image/tiguan.jpg";
+
 import { useParams } from 'react-router-dom';
+
+import  { Link } from 'react-router-dom';
+import config from "../Config";
 
 function Details() {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -27,7 +30,7 @@ function Details() {
   };
 
   useEffect(() => {
-    fetch(`https://wsprojetcloud-production.up.railway.app/Annonce?idAnnonce=${idAnnonce}`)
+    fetch(config.baseUrl+`/Annonce?idAnnonce=${idAnnonce}`)
       .then((response) => response.json())
       .then((data) => {
         setAnnonce(data);
@@ -54,10 +57,10 @@ function Details() {
                   {annonce.saryAnnonces?.map((image, index) => (
                     <img
                       key={index}
-                      src={`data:image/jpeg;base64, ${image.sary}`}
-                      alt={`Image ${index}`}
+                      src={image.sary}
+                      alt="Voiture"
                       style={{ width: '100%', height: 'auto' }}
-                    />
+                    ></img>
                   ))}
                 </div>
               </div>
@@ -111,12 +114,11 @@ function Details() {
                   </Typography>
               </div>
               <div className="flex items-center justify-center space-x-4">
-                <Button color="blue" size="md" ripple="dark">
-                  Acheter Maintenant
-                </Button>
+              <Link to={`/Message/${annonce.utilisateur?.idUtilisateur}`}>
                 <Button variant="outlined" size="md" ripple="dark">
                   Contacter
                 </Button>
+              </Link>
               </div>
             </div>
           </div>
