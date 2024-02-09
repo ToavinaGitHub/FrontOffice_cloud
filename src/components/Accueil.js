@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import SideBar from "./SideBar";
 import config from "../Config";
 
+
 class Accueil extends React.Component {
   constructor(props) {
     super(props);
@@ -29,10 +30,12 @@ class Accueil extends React.Component {
   }
 
   fetchAnnoncesData = () => {
+    this.setState({loading:true});
     fetch(config.baseUrl+"/AnnoncesDispo")
       .then((response) => response.json())
       .then((data) => {
-        this.setState({ annonces: data });
+        this.setState({ annonces: data ,loading:false});
+
       })
       .catch((error) => {
         console.error("Fetch error:", error);
@@ -100,7 +103,9 @@ class Accueil extends React.Component {
                 <p className="text-3xl font-bold mb-4 text-indigo-700">Explorez et vendez des voitures d'occasion de qualité.</p>
                 <p className="text-xl leading-relaxed">Simplifiez vos transactions automobiles avec notre plateforme fiable.</p>
               </div>
+             
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8 ">
+                
                 {annonces.map((annonce, index) => (
                   <Card key={index}>
                     <GridContent
@@ -125,10 +130,11 @@ class Accueil extends React.Component {
                           >
                             <FontAwesomeIcon icon={faHeart} className="w-5 h-5 mr-2" /> Ajouter aux Favoris
                           </Button>
-                          <Link to={`/Message/${annonce.utilisateur.idUtilisateur}`}>
+                  <Link to={`/Message/${annonce.utilisateur.idUtilisateur}`}>
                       <Button
                         ripple={false}
                         style={{ backgroundColor: "rgb(54, 65, 86)", color: "white" }}
+                        className="w-full"
                       >
                     <FontAwesomeIcon icon={faEnvelope} className="w-5 h-5 mr-2" /> Contacter
                       </Button>
@@ -137,6 +143,7 @@ class Accueil extends React.Component {
                   </Card>
                 ))}
               </div>
+            
             </div>
         </div>
       </>
