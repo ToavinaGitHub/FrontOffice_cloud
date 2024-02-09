@@ -6,11 +6,14 @@ import {  faTrash } from '@fortawesome/free-solid-svg-icons';
 
 import { Link } from "react-router-dom";
 
+import ClipLoader from "react-spinners/ClipLoader";
 
 import config from "../Config";
 function AnnonceFavoris() {
     
     const [annonces, setAnnonces] = useState([]);
+
+    const [loading , setLoading ]=useState(false);
 
     useEffect(() => {
         fetchAnnoncesFavoris();
@@ -19,6 +22,9 @@ function AnnonceFavoris() {
     const fetchAnnoncesFavoris = () => {
         const token = localStorage.getItem("token");
         const idUser= localStorage.getItem("idUser");
+
+        setLoading(true);
+
         fetch(config.baseUrl+`/AnnoncesFavoris?idClient=${idUser}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -27,6 +33,7 @@ function AnnonceFavoris() {
             .then((response) => response.json())
             .then((data) => {
                 setAnnonces(data);
+                setLoading(false);
             })
             .catch((error) => {
                 window.location.href = "/Login/1";
@@ -45,7 +52,6 @@ function AnnonceFavoris() {
             },
         })
         .then(() => {
-            // After successful deletion, fetch the updated list of favorites
             fetchAnnoncesFavoris();
         })
         .catch((error) => {
@@ -56,6 +62,17 @@ function AnnonceFavoris() {
 
     return (
         <>
+
+            {loading ? (
+                   <div className="flex justify-center items-center h-screen">
+                   <ClipLoader
+                     color={'#182d56'}
+                     loading={loading}
+                     size={100}
+                     id="loader"
+                   />
+                 </div>
+            ) : (
             <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 gap-8 p-8">
                 {annonces.map((annonce, index) => (
                     <Card key={index} className="mt-6 w-96">
@@ -90,6 +107,7 @@ function AnnonceFavoris() {
                     </Card>
                 ))}
             </div>
+            )}
         </>
     );
 }

@@ -8,13 +8,19 @@ import {
 
 import config from "../Config";
 
+import ClipLoader from "react-spinners/ClipLoader";
+
 function HistoriqueAnnonce() {
     const [annonces, setAnnonces] = useState([]);
+
+    const [loading , setLoading ]=useState(false);
     useEffect(() => {
         fetchAnnoncesHistorique();
     }, []);
 
     const fetchAnnoncesHistorique = () => {
+
+        setLoading(true);
         const token = localStorage.getItem("token");
         const idUser= localStorage.getItem("idUser");
         fetch(config.baseUrl+`/AnnoncesHistorique?idClient=${idUser}`, {
@@ -25,6 +31,7 @@ function HistoriqueAnnonce() {
             .then((response) => response.json())
             .then((data) => {
                 setAnnonces(data);
+                setLoading(false);
             })
             .catch((error) => {
                 window.location.href = "/Login/2";
@@ -37,6 +44,18 @@ function HistoriqueAnnonce() {
           Historique de mes annonces
         </Typography>
       </div>
+
+      {loading ? (
+                   <div className="flex justify-center items-center h-screen">
+                   <ClipLoader
+                     color={'#182d56'}
+                     loading={loading}
+                     size={100}
+                     id="loader"
+                   />
+                 </div>
+            ) : (
+
        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 gap-8 p-8">
                 {annonces.map((annonce, index) => (
                     <Card key={index} className="mt-6 w-96">
@@ -57,6 +76,7 @@ function HistoriqueAnnonce() {
                     </Card>
                 ))}
             </div>
+            )}
     </>
   );
 }
