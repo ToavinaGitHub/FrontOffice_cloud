@@ -6,8 +6,10 @@ import {  faTrash } from '@fortawesome/free-solid-svg-icons';
 
 import { Link } from "react-router-dom";
 
+
 import config from "../Config";
 function AnnonceFavoris() {
+    
     const [annonces, setAnnonces] = useState([]);
 
     useEffect(() => {
