@@ -2,12 +2,18 @@ import React, { useEffect, useState } from "react";
 import GridContent from "./GridContent";
 import { Button, Card } from "@material-tailwind/react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faTrash } from '@fortawesome/free-solid-svg-icons';
+import {  faTrash } from '@fortawesome/free-solid-svg-icons';
 
+import { Link } from "react-router-dom";
+
+import ClipLoader from "react-spinners/ClipLoader";
 
 import config from "../Config";
 function AnnonceFavoris() {
+    
     const [annonces, setAnnonces] = useState([]);
+
+    const [loading , setLoading ]=useState(false);
 
     useEffect(() => {
         fetchAnnoncesFavoris();
@@ -16,6 +22,9 @@ function AnnonceFavoris() {
     const fetchAnnoncesFavoris = () => {
         const token = localStorage.getItem("token");
         const idUser= localStorage.getItem("idUser");
+
+        setLoading(true);
+
         fetch(config.baseUrl+`/AnnoncesFavoris?idClient=${idUser}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -24,6 +33,7 @@ function AnnonceFavoris() {
             .then((response) => response.json())
             .then((data) => {
                 setAnnonces(data);
+                setLoading(false);
             })
             .catch((error) => {
                 window.location.href = "/Login/1";
@@ -42,7 +52,6 @@ function AnnonceFavoris() {
             },
         })
         .then(() => {
-            // After successful deletion, fetch the updated list of favorites
             fetchAnnoncesFavoris();
         })
         .catch((error) => {
@@ -53,6 +62,17 @@ function AnnonceFavoris() {
 
     return (
         <>
+
+            {loading ? (
+                   <div className="flex justify-center items-center h-screen">
+                   <ClipLoader
+                     color={'#182d56'}
+                     loading={loading}
+                     size={100}
+                     id="loader"
+                   />
+                 </div>
+            ) : (
             <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-3 gap-8 p-8">
                 {annonces.map((annonce, index) => (
                     <Card key={index} className="mt-6 w-96">
@@ -71,23 +91,23 @@ function AnnonceFavoris() {
                             date={new Date(annonce.dateAnnonce).toLocaleDateString()}
                         />
                         <div className="flex flex-col gap-4 mt-4">
-                        <Button
+                            <Button
                                 ripple={false}
                                 style={{ backgroundColor: 'rgb(125, 78, 87)', color: 'white' }}
                                 onClick={() => removeFromFavorites(annonce.idAnnonce)}
                             >
                                 <FontAwesomeIcon icon={faTrash} className="w-5 h-5 mr-2" /> Supprimer des favoris
                             </Button>
-                            <Button
-                                ripple={false}
-                                style={{ backgroundColor: 'rgb(54, 65, 86)', color: 'white' }}
-                            >
-                                <FontAwesomeIcon icon={faEnvelope} className="w-5 h-5 mr-2" /> Contacter
-                            </Button>
+                            <Link to={`/Message/${annonce.utilisateur.idUtilisateur}`}>
+                                <Button variant="outlined" size="md" className="w-full" ripple="dark">
+                                     Contacter
+                                </Button>
+                            </Link>
                         </div>
                     </Card>
                 ))}
             </div>
+            )}
         </>
     );
 }
